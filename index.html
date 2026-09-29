@@ -4,9 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Kelarin - Student Productivity App</title>
-  
+
   <link rel="manifest" href="manifest.json">
-  
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='128' fill='%234F46E5'/><g fill='none' stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round'><line x1='160' y1='120' x2='160' y2='392' stroke-width='48'/><line x1='160' y1='260' x2='310' y2='130' stroke-width='48'/><path d='M 230 290 L 300 360 L 410 210' stroke='%2310B981' stroke-width='52'/></g></svg>">
   <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='128' fill='%234F46E5'/><g fill='none' stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round'><line x1='160' y1='120' x2='160' y2='392' stroke-width='48'/><line x1='160' y1='260' x2='310' y2='130' stroke-width='48'/><path d='M 230 290 L 300 360 L 410 210' stroke='%2310B981' stroke-width='52'/></g></svg>">
   
@@ -14,26 +13,20 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <style>
-    body, html { 
-      margin: 0; 
-      padding: 0; 
-      height: 100%; 
-      overflow: hidden; 
-      background-color: #4F46E5;
-    }
-    iframe { 
-      width: 100%; 
-      height: 100%; 
-      border: none; 
-    }
-  </style>
+  <script>
+    const TARGET_URL = "https://script.google.com/macros/s/AKfycbyXw1xHcsAq9SR7zk2pILeO4QpEFJOiNjZhxEZYr0DAMK5xXixNx_tYaE2KBmoFqOAW/exec";
+
+    window.location.replace(TARGET_URL);
+  </script>
 </head>
-<body>
-  <iframe 
-    src="https://script.google.com/macros/s/AKfycbyXw1xHcsAq9SR7zk2pILeO4QpEFJOiNjZhxEZYr0DAMK5xXixNx_tYaE2KBmoFqOAW/exec" 
-    allow="clipboard-read; clipboard-write; notifications"
-    allowfullscreen>
-  </iframe>
+<body style="background-color: #4F46E5; color: white; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; text-align: center;">
+  <div>
+    <h2>Membuka Kelarin... 🚀</h2>
+    <p style="font-size: 14px; opacity: 0.8;">Jika tidak berpindah otomatis, <a href="#" id="manual-link" style="color: #10B981; font-weight: bold;">klik di sini</a>.</p>
+  </div>
+
+  <script>
+    document.getElementById('manual-link').href = TARGET_URL;
+  </script>
 </body>
 </html>
