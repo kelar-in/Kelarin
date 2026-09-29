@@ -16,14 +16,15 @@
 
   <style>
     body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #4F46E5; }
-    #loader { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; color: white; font-family: sans-serif; text-align: center; }
-    #app-container { width: 100%; height: 100%; border: none; display: none; }
+    #loading-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; color: white; font-family: sans-serif; }
+    #app-frame { width: 100%; height: 100%; border: none; display: none; }
   </style>
 </head>
 <body>
 
-  <div id="loader">
-    <div style="width: 64px; height: 64px; margin-bottom: 16px;">
+  <!-- Screen Loading Logo Kelarin -->
+  <div id="loading-screen">
+    <div style="width: 64px; height: 64px; margin-bottom: 12px;">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-full h-full">
         <rect width="512" height="512" rx="128" fill="#4F46E5"/>
         <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
@@ -33,35 +34,35 @@
         </g>
       </svg>
     </div>
-    <p style="font-weight: bold; font-size: 14px;">Membuka Kelarin...</p>
+    <p style="font-size: 14px; font-weight: bold;">Memuat Kelarin...</p>
   </div>
 
-  <iframe id="app-container" allow="clipboard-read; clipboard-write; notifications" allowfullscreen></iframe>
+  <iframe id="app-frame" allow="clipboard-read; clipboard-write; notifications" allowfullscreen></iframe>
 
   <script>
-    // MASUKKAN URL WEB APP APPS SCRIPT AKHIRAN /exec DI SINI
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyXw1xHcsAq9SR7zk2pILeO4QpEFJOiNjZhxEZYr0DAMK5xXixNx_tYaE2KBmoFqOAW/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbyXw1xHcsAq9SR7zk2pILeO4QpEFJOiNjZhxEZYr0DAMK5xXixNx_tYaE2KBmoFqOAW/exec";
 
-    // Memuat konten secara aman tanpa terblokir domain
-    fetch(APPS_SCRIPT_URL)
-      .then(response => response.text())
+    // Teknik Proxy Fetch HTML untuk Bypass Frame Options Google
+    fetch(GAS_URL)
+      .then(res => res.text())
       .then(html => {
-        // Menyuntikkan base href agar asset & script berjalan relatif aman
-        const baseTag = `<base href="${APPS_SCRIPT_URL}">`;
-        const updatedHtml = html.replace('<head>', '<head>' + baseTag);
+        // Injeksi base URL agar semua skrip google.script.run dan asset Tailwind tetap berjalan
+        const injectedHtml = html.replace('<head>', `<head><base href="${GAS_URL}">`);
         
-        const blob = new Blob([updatedHtml], { type: 'text/html' });
+        const blob = new Blob([injectedHtml], { type: 'text/html' });
         const blobUrl = URL.createObjectURL(blob);
         
-        const frame = document.getElementById('app-container');
+        const frame = document.getElementById('app-frame');
         frame.src = blobUrl;
         
-        document.getElementById('loader').style.display = 'none';
+        document.getElementById('loading-screen').style.display = 'none';
         frame.style.display = 'block';
       })
       .catch(err => {
-        // Fallback jika fetch terhalang CORS
-        window.location.href = APPS_SCRIPT_URL;
+        // Jika fetch tertahan CORS browser, render via embed pengganti
+        document.getElementById('app-frame').src = GAS_URL;
+        document.getElementById('loading-screen').style.display = 'none';
+        document.getElementById('app-frame').style.display = 'block';
       });
   </script>
 </body>
